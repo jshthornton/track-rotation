@@ -10,15 +10,13 @@ export default class {
 
   _bindFns() {
     _.bindAll(this, [
-      '_onWindowRotation'
+      '_onMatchMediaChange'
     ]);
   }
 
   _bindEvents() {
-    var supportsOrientationChange = 'onorientationchange' in window,
-      orientationEvent = supportsOrientationChange ? 'orientationchange' : 'resize';
-
-    $(window).on(orientationEvent, this._onWindowRotation);
+    var mql = window.matchMedia('(orientation: portrait)');
+    mql.addListener(this._onMatchMediaChange);
   }
 
   cleanup() {
@@ -26,9 +24,9 @@ export default class {
   }
 
   // Events
-  _onWindowRotation(e) {
+  _onMatchMediaChange(m) {
     this._callback({
-      orientation: window.orientation
+      orientation: (m.matches === true) ? 'portrait' : 'landscape'
     });
   }
 };
