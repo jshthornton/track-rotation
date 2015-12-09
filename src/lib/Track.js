@@ -4,6 +4,8 @@ import _ from 'lodash';
 export default class {
   constructor(callback) {
     this._callback = callback;
+    this._bindFns();
+    this._bindEvents();
   }
 
   _bindFns() {
